@@ -1,0 +1,16 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ring" x1="130" y1="90" x2="380" y2="400" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9FD34B" />
+      <stop offset="1" stop-color="#7FB92F" />
+    </linearGradient>
+  </defs>
+  <path fill-rule="evenodd" clip-rule="evenodd"
+    d="M256 70C150.16 70 64 156.16 64 262s86.16 192 192 192 192-86.16 192-192S361.84 70 256 70Zm0 122c-38.66 0-70 31.34-70 70s31.34 70 70 70 70-31.34 70-70-31.34-70-70-70Z"
+    fill="url(#ring)" />
+  <path
+    d="M332 126c-23.5-11.5-49.72-15.7-75.5-12.2-60.6 8.3-110.8 52.3-126.1 111-3 11.5-5 23.8-5.2 36.2-0.2 8.7 8.6 15 16.8 11.7 46.5-18.8 79.7-58 139.5-83.1 26.6-11.4 56.1-17.8 86.6-20.4 10.5-0.9 15-14.1 7.8-21.6-12.6-13.1-26.9-19.6-43-21.6Z"
+    fill="#B7E36C" opacity="0.8" />
+  <ellipse cx="226" cy="116" rx="44" ry="78" transform="rotate(-25 226 116)" fill="#5FA032" />
+  <ellipse cx="309" cy="118" rx="42" ry="72" transform="rotate(20 309 118)" fill="#5FA032" />
+</svg>
