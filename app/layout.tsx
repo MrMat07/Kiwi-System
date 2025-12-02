@@ -4,7 +4,10 @@ import { ThemeProvider } from '../components/layout/theme-provider';
 
 export const metadata = {
   title: 'Kiwi System',
-  description: 'ERP/CRM básico con Next.js'
+  description: 'ERP/CRM básico con Next.js',
+  icons: {
+    icon: '/icon.svg'
+  }
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

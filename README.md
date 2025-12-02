@@ -27,11 +27,16 @@ Aplicación ERP/CRM básica construida con Next.js (App Router), API Routes y Pr
      mysql -u <usuario> -p < prisma/mysql_schema.sql
      ```
      Esto crea la base `kiwi_system` con todas las tablas y llaves foráneas alineadas con `prisma/schema.prisma`.
-4. Genera el cliente de Prisma:
+4. (Opcional) Carga un usuario administrador por defecto (`admin@localhost` / `admin`) una vez creada la base de datos:
+   ```bash
+   mysql -u <usuario> -p < prisma/seed_admin.sql
+   ```
+   El script usa un hash bcrypt y puede ejecutarse cuantas veces quieras sin duplicar registros.
+5. Genera el cliente de Prisma:
    ```bash
    npm run prisma:generate
    ```
-5. Inicia el servidor de desarrollo:
+6. Inicia el servidor de desarrollo:
    ```bash
    npm run dev
    ```
@@ -47,6 +52,7 @@ Aplicación ERP/CRM básica construida con Next.js (App Router), API Routes y Pr
 - Registro y login via `/api/auth/register` y `/api/auth/login`
 - Los tokens JWT se almacenan en cookie httpOnly y se validan en `middleware.ts`
 - Solo usuarios con rol `admin` pueden gestionar otros usuarios
+- Si necesitas un usuario inicial, ejecuta `prisma/seed_admin.sql` para crear `admin@localhost` con contraseña `admin`
 
 ## Scripts
 - `npm run dev`: entorno de desarrollo
