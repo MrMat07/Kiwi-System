@@ -1,0 +1,151 @@
+'use client';
+
+import Image from 'next/image';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+
+type Mode = 'login' | 'register';
+
+type Role = 'admin' | 'operador';
+
+export default function LoginPage() {
+  const [mode, setMode] = useState<Mode>('login');
+  const [nombre, setNombre] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [rol, setRol] = useState<Role>('operador');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const isLogin = mode === 'login';
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+    try {
+      if (isLogin) {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          setError(data.error || 'Error al iniciar sesión');
+        } else {
+          router.push('/dashboard');
+        }
+      } else {
+        const registerRes = await fetch('/api/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nombre, email, password, rol })
+        });
+        const registerData = await registerRes.json();
+        if (!registerRes.ok) {
+          setError(registerData.error || 'Error al crear la cuenta');
+        } else {
+          const loginRes = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+          });
+          const loginData = await loginRes.json();
+          if (!loginRes.ok) {
+            setError(loginData.error || 'Cuenta creada, pero no se pudo iniciar sesión');
+          } else {
+            router.push('/dashboard');
+          }
+        }
+      }
+    } catch (err) {
+      setError('Error de red');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+      <div className="card w-full max-w-md">
+        <div className="flex flex-col items-center text-center mb-4">
+          <div className="w-16 h-16 relative mb-3">
+            <Image src="/kiwi-logo.svg" alt="Logo Kiwi System" fill sizes="64px" />
+          </div>
+          <h1 className="text-2xl font-semibold">Kiwi System</h1>
+          <p className="text-sm text-gray-600 mt-1">
+            {isLogin ? 'Accede con tu cuenta' : 'Crea una cuenta para empezar'}
+          </p>
+        </div>
+
+        <form className="space-y-4" onSubmit={handleSubmit}>
+          {!isLogin && (
+            <div>
+              <label className="block text-sm text-gray-600">Nombre</label>
+              <input
+                className="input"
+                type="text"
+                value={nombre}
+                onChange={(e) => setNombre(e.target.value)}
+                required
+              />
+            </div>
+          )}
+          <div>
+            <label className="block text-sm text-gray-600">Email</label>
+            <input
+              className="input"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm text-gray-600">Contraseña</label>
+            <input
+              className="input"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          {!isLogin && (
+            <div>
+              <label className="block text-sm text-gray-600">Rol</label>
+              <select
+                className="input"
+                value={rol}
+                onChange={(e) => setRol(e.target.value as Role)}
+              >
+                <option value="operador">Operador</option>
+                <option value="admin">Administrador</option>
+              </select>
+            </div>
+          )}
+          {error && <p className="text-red-600 text-sm">{error}</p>}
+          <button className="btn-primary w-full" disabled={loading} type="submit">
+            {loading ? (isLogin ? 'Entrando...' : 'Creando cuenta...') : isLogin ? 'Ingresar' : 'Crear cuenta'}
+          </button>
+        </form>
+
+        <div className="mt-4 text-center text-sm text-gray-600">
+          {isLogin ? '¿No tienes cuenta?' : '¿Ya tienes cuenta?'}{' '}
+          <button
+            type="button"
+            className="text-blue-600 hover:underline font-medium"
+            onClick={() => {
+              setMode(isLogin ? 'register' : 'login');
+              setError('');
+            }}
+          >
+            {isLogin ? 'Crear una cuenta' : 'Iniciar sesión'}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
