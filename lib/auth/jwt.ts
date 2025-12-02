@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { cookies } from 'next/headers';
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'dev-secret';
 const TOKEN_NAME = 'kiwi_token';
@@ -38,8 +38,8 @@ export function getAuthPayloadFromCookies(): AuthPayload | null {
   return verifyToken(token);
 }
 
-export function setAuthCookie(token: string) {
-  cookies().set({
+export function setAuthCookie(token: string, response: NextResponse) {
+  response.cookies.set({
     name: TOKEN_NAME,
     value: token,
     httpOnly: true,
@@ -49,8 +49,8 @@ export function setAuthCookie(token: string) {
   });
 }
 
-export function clearAuthCookie() {
-  cookies().set({
+export function clearAuthCookie(response: NextResponse) {
+  response.cookies.set({
     name: TOKEN_NAME,
     value: '',
     httpOnly: true,

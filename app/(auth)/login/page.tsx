@@ -1,9 +1,8 @@
 'use client';
 
-import Image from 'next/image';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import logo from '../../../public/kiwi-logo.svg';
+import Image from 'next/image';
 
 type Mode = 'login' | 'register';
 
@@ -39,7 +38,8 @@ export default function LoginPage() {
         if (!res.ok) {
           setError(data.error || 'Error al iniciar sesión');
         } else {
-          router.push('/dashboard');
+          router.replace('/dashboard');
+          router.refresh();
         }
       } else {
         const registerRes = await fetch('/api/auth/register', {
@@ -70,7 +70,7 @@ export default function LoginPage() {
         <div className="absolute inset-0 bg-gradient-to-br from-accent/30 via-mint/25 to-primary/15 pointer-events-none" />
         <div className="relative flex flex-col items-center text-center mb-6 space-y-2">
           <div className="w-20 h-20 relative">
-            <Image src={logo} alt="Logo Kiwi System" className="object-contain" fill priority sizes="80px" />
+            <Image src="/kiwi-logo.svg" alt="Logo Kiwi System" className="object-contain" fill priority sizes="80px" />
           </div>
           <h1 className="text-3xl font-semibold tracking-wide text-secondary">Kiwi System</h1>
           <p className="text-sm text-slate-600 max-w-sm">
