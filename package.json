@@ -1,0 +1,35 @@
+{
+  "name": "kiwi-system",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "prisma:generate": "prisma generate"
+  },
+  "dependencies": {
+    "@prisma/client": "5.15.0",
+    "autoprefixer": "10.4.19",
+    "bcryptjs": "2.4.3",
+    "jsonwebtoken": "9.0.2",
+    "next": "14.2.3",
+    "next-themes": "0.2.1",
+    "postcss": "8.4.38",
+    "prisma": "5.15.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "tailwindcss": "3.4.4",
+    "zod": "3.23.8"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "2.4.2",
+    "@types/jsonwebtoken": "9.0.5",
+    "@types/node": "20.12.7",
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.0",
+    "typescript": "5.4.5"
+  }
+}
