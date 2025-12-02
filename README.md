@@ -17,10 +17,16 @@ Aplicación ERP/CRM básica construida con Next.js (App Router), API Routes y Pr
    ```
    - `DATABASE_URL`: cadena de conexión MySQL
    - `JWT_SECRET`: secreto para firmar los tokens
-3. Ejecuta las migraciones de Prisma (requiere que la base de datos exista):
-   ```bash
-   npx prisma migrate dev --name init
-   ```
+3. Crea la base de datos (dos opciones):
+   - **Usando Prisma (recomendado):**
+     ```bash
+     npx prisma migrate dev --name init
+     ```
+   - **Importando el SQL listo para MySQL:**
+     ```bash
+     mysql -u <usuario> -p < prisma/mysql_schema.sql
+     ```
+     Esto crea la base `kiwi_system` con todas las tablas y llaves foráneas alineadas con `prisma/schema.prisma`.
 4. Genera el cliente de Prisma:
    ```bash
    npm run prisma:generate
