@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import logo from '../../../public/kiwi-logo.svg';
 
 type Mode = 'login' | 'register';
 
@@ -15,6 +16,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [rol, setRol] = useState<Role>('operador');
   const [error, setError] = useState('');
+  const [notice, setNotice] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -23,12 +25,14 @@ export default function LoginPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setNotice('');
     setLoading(true);
     try {
       if (isLogin) {
         const res = await fetch('/api/auth/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
           body: JSON.stringify({ email, password })
         });
         const data = await res.json();
@@ -41,23 +45,16 @@ export default function LoginPage() {
         const registerRes = await fetch('/api/auth/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
           body: JSON.stringify({ nombre, email, password, rol })
         });
         const registerData = await registerRes.json();
         if (!registerRes.ok) {
           setError(registerData.error || 'Error al crear la cuenta');
         } else {
-          const loginRes = await fetch('/api/auth/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
-          });
-          const loginData = await loginRes.json();
-          if (!loginRes.ok) {
-            setError(loginData.error || 'Cuenta creada, pero no se pudo iniciar sesión');
-          } else {
-            router.push('/dashboard');
-          }
+          setNotice('Cuenta creada con éxito. Inicia sesión con tus credenciales.');
+          setMode('login');
+          setPassword('');
         }
       }
     } catch (err) {
@@ -73,7 +70,7 @@ export default function LoginPage() {
         <div className="absolute inset-0 bg-gradient-to-br from-accent/30 via-mint/25 to-primary/15 pointer-events-none" />
         <div className="relative flex flex-col items-center text-center mb-6 space-y-2">
           <div className="w-20 h-20 relative">
-            <Image src="/kiwi-logo.svg" alt="Logo Kiwi System" width={80} height={80} priority />
+            <Image src={logo} alt="Logo Kiwi System" className="object-contain" fill priority sizes="80px" />
           </div>
           <h1 className="text-3xl font-semibold tracking-wide text-secondary">Kiwi System</h1>
           <p className="text-sm text-slate-600 max-w-sm">
@@ -113,6 +110,11 @@ export default function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+            {!isLogin && (
+              <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                Usa al menos 8 caracteres con mayúsculas, minúsculas, números y un símbolo especial.
+              </p>
+            )}
           </div>
           {!isLogin && (
             <div>
@@ -128,6 +130,7 @@ export default function LoginPage() {
             </div>
           )}
           {error && <p className="text-red-600 text-sm bg-red-50 border border-red-100 rounded-md p-2">{error}</p>}
+          {notice && <p className="text-emerald-700 text-sm bg-emerald-50 border border-emerald-100 rounded-md p-2">{notice}</p>}
           <button className="btn-primary w-full" disabled={loading} type="submit">
             {loading ? (isLogin ? 'Entrando...' : 'Creando cuenta...') : isLogin ? 'Ingresar' : 'Crear cuenta'}
           </button>

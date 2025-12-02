@@ -1,9 +1,17 @@
 import { z } from 'zod';
 
+const passwordPolicy = z
+  .string()
+  .min(8, { message: 'La contraseña debe tener al menos 8 caracteres.' })
+  .regex(/[A-Z]/, { message: 'Debe incluir al menos una letra mayúscula.' })
+  .regex(/[a-z]/, { message: 'Debe incluir al menos una letra minúscula.' })
+  .regex(/[0-9]/, { message: 'Debe incluir al menos un número.' })
+  .regex(/[^A-Za-z0-9]/, { message: 'Debe incluir al menos un carácter especial.' });
+
 export const registerSchema = z.object({
-  nombre: z.string().min(2),
-  email: z.string().email(),
-  password: z.string().min(6),
+  nombre: z.string().min(2, { message: 'El nombre debe tener al menos 2 caracteres.' }),
+  email: z.string().email({ message: 'El email no tiene un formato válido.' }),
+  password: passwordPolicy,
   rol: z.enum(['admin', 'operador']).default('operador')
 });
 

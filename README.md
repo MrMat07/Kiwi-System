@@ -53,6 +53,7 @@ Aplicación ERP/CRM básica construida con Next.js (App Router), API Routes y Pr
 - Los tokens JWT se almacenan en cookie httpOnly y se validan en `middleware.ts`
 - Solo usuarios con rol `admin` pueden gestionar otros usuarios
 - Si necesitas un usuario inicial, ejecuta `prisma/seed_admin.sql` para crear `admin@localhost` con contraseña `Admin123!`
+- Las nuevas contraseñas deben tener mínimo 8 caracteres, incluir mayúsculas, minúsculas, números y un carácter especial.
 
 ## Scripts
 - `npm run dev`: entorno de desarrollo

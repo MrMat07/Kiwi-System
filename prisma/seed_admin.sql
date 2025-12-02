@@ -3,7 +3,7 @@
 USE `kiwi_system`;
 
 INSERT INTO `User` (`nombre`, `email`, `passwordHash`, `rol`)
-VALUES ('Administrador', 'admin@localhost', '$2a$10$/FhfQ9dvAc1h35TSjJ9f4uKTt.humFy2EzFhhPkVCT2GLUNS3eSXC', 'admin')
+VALUES ('Administrador', 'admin@localhost', '$2a$10$Id0bPu87DrPg8E2uO8g3cuwOXpc8KD36mq9n3/9QUjfsZ583pVgj2', 'admin')
 ON DUPLICATE KEY UPDATE
   `nombre` = VALUES(`nombre`),
   `passwordHash` = VALUES(`passwordHash`),
