@@ -24,13 +24,13 @@ export function Topbar() {
   };
 
   return (
-    <header className="flex items-center justify-between bg-white border-b border-gray-200 px-6 py-3">
+    <header className="flex items-center justify-between bg-white/90 backdrop-blur border-b border-slate-200 px-6 py-4 shadow-sm">
       <div>
-        <p className="text-sm text-gray-500">Bienvenido</p>
-        <p className="font-semibold">{user?.nombre || 'Cargando...'}</p>
+        <p className="text-sm text-slate-500">Bienvenido</p>
+        <p className="font-semibold text-secondary">{user?.nombre || 'Cargando...'}</p>
       </div>
       <div className="flex items-center space-x-3">
-        {user && <span className="text-xs bg-gray-100 px-3 py-1 rounded-full capitalize">{user.rol}</span>}
+        {user && <span className="text-xs bg-mint/30 text-secondary px-3 py-1 rounded-full capitalize border border-mint/60">{user.rol}</span>}
         <button className="btn-secondary" onClick={logout}>
           Logout
         </button>

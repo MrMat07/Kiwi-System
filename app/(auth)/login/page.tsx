@@ -68,14 +68,15 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-      <div className="card w-full max-w-md">
-        <div className="flex flex-col items-center text-center mb-4">
-          <div className="w-16 h-16 relative mb-3">
-            <Image src="/kiwi-logo.svg" alt="Logo Kiwi System" fill sizes="64px" />
+    <div className="min-h-screen flex items-center justify-center px-4 bg-[radial-gradient(circle_at_10%_20%,#fafb8a_0,#f6fbc2_22%,#edf9f5_50%,#e5f3ff_100%)]">
+      <div className="card w-full max-w-md relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/30 via-mint/25 to-primary/15 pointer-events-none" />
+        <div className="relative flex flex-col items-center text-center mb-6 space-y-2">
+          <div className="w-20 h-20 relative">
+            <Image src="/kiwi-logo.svg" alt="Logo Kiwi System" width={80} height={80} priority />
           </div>
-          <h1 className="text-2xl font-semibold">Kiwi System</h1>
-          <p className="text-sm text-gray-600 mt-1">
+          <h1 className="text-3xl font-semibold tracking-wide text-secondary">Kiwi System</h1>
+          <p className="text-sm text-slate-600 max-w-sm">
             {isLogin ? 'Accede con tu cuenta' : 'Crea una cuenta para empezar'}
           </p>
         </div>
@@ -83,7 +84,7 @@ export default function LoginPage() {
         <form className="space-y-4" onSubmit={handleSubmit}>
           {!isLogin && (
             <div>
-              <label className="block text-sm text-gray-600">Nombre</label>
+              <label className="block text-sm text-secondary/80">Nombre</label>
               <input
                 className="input"
                 type="text"
@@ -94,7 +95,7 @@ export default function LoginPage() {
             </div>
           )}
           <div>
-            <label className="block text-sm text-gray-600">Email</label>
+            <label className="block text-sm text-secondary/80">Email</label>
             <input
               className="input"
               type="email"
@@ -104,7 +105,7 @@ export default function LoginPage() {
             />
           </div>
           <div>
-            <label className="block text-sm text-gray-600">Contraseña</label>
+            <label className="block text-sm text-secondary/80">Contraseña</label>
             <input
               className="input"
               type="password"
@@ -115,7 +116,7 @@ export default function LoginPage() {
           </div>
           {!isLogin && (
             <div>
-              <label className="block text-sm text-gray-600">Rol</label>
+              <label className="block text-sm text-secondary/80">Rol</label>
               <select
                 className="input"
                 value={rol}
@@ -126,17 +127,17 @@ export default function LoginPage() {
               </select>
             </div>
           )}
-          {error && <p className="text-red-600 text-sm">{error}</p>}
+          {error && <p className="text-red-600 text-sm bg-red-50 border border-red-100 rounded-md p-2">{error}</p>}
           <button className="btn-primary w-full" disabled={loading} type="submit">
             {loading ? (isLogin ? 'Entrando...' : 'Creando cuenta...') : isLogin ? 'Ingresar' : 'Crear cuenta'}
           </button>
         </form>
 
-        <div className="mt-4 text-center text-sm text-gray-600">
+        <div className="relative mt-6 text-center text-sm text-secondary/80">
           {isLogin ? '¿No tienes cuenta?' : '¿Ya tienes cuenta?'}{' '}
           <button
             type="button"
-            className="text-blue-600 hover:underline font-medium"
+            className="text-primary-deep hover:underline font-semibold"
             onClick={() => {
               setMode(isLogin ? 'register' : 'login');
               setError('');

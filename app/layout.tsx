@@ -6,7 +6,9 @@ export const metadata = {
   title: 'Kiwi System',
   description: 'ERP/CRM básico con Next.js',
   icons: {
-    icon: '/icon.svg'
+    icon: ['/icon.svg', '/kiwi-logo.svg'],
+    shortcut: ['/icon.svg'],
+    apple: ['/icon.svg']
   }
 };
 

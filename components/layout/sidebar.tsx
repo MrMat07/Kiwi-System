@@ -30,8 +30,8 @@ export function Sidebar() {
   }, []);
 
   return (
-    <aside className="w-60 bg-secondary text-white min-h-screen p-4 space-y-4">
-      <h2 className="text-xl font-semibold">Kiwi System</h2>
+    <aside className="w-64 bg-gradient-to-b from-primary-deep via-forest to-secondary text-white min-h-screen p-5 space-y-6 shadow-xl shadow-primary/10">
+      <h2 className="text-2xl font-semibold tracking-wide">Kiwi System</h2>
       <nav className="space-y-2">
         {links
           .filter((link) => !link.admin || role === 'admin')
@@ -41,7 +41,11 @@ export function Sidebar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`block px-3 py-2 rounded-md text-sm ${active ? 'bg-primary text-white' : 'hover:bg-gray-700'}`}
+                className={`block px-3 py-2 rounded-lg text-sm transition border border-transparent ${
+                  active
+                    ? 'bg-white/10 border-white/30 shadow-inner'
+                    : 'hover:bg-white/5 hover:border-white/10'
+                }`}
               >
                 {link.label}
               </Link>

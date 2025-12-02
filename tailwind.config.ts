@@ -8,8 +8,12 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: '#0F766E',
-        secondary: '#111827'
+        primary: '#23AABF',
+        'primary-deep': '#007882',
+        accent: '#FAFA6E',
+        mint: '#86D780',
+        forest: '#2A6858',
+        secondary: '#0F172A'
       }
     },
   },
